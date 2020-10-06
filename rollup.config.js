@@ -31,7 +31,16 @@ export default {
 			svelte({
 				dev,
 				hydratable: true,
-				preprocess: sveltePreprocess(),
+				preprocess: sveltePreprocess({
+					sourceMap: dev,
+					defaults: {
+						script: "typescript",
+						style: "sass"
+					},
+					sass: {
+						prependData: `@import '${ require('path').join(process.cwd(), 'src/styles/_variables.sass') }'`
+					}
+				}),
 				emitCss: true
 			}),
 			resolve({
@@ -78,7 +87,16 @@ export default {
 			svelte({
 				generate: 'ssr',
 				hydratable: true,
-				preprocess: sveltePreprocess(),
+				preprocess: sveltePreprocess({
+					sourceMap: dev,
+					defaults: {
+						script: "typescript",
+						style: "sass"
+					},
+					sass: {
+						prependData: `@import '${ require('path').join(process.cwd(), 'src/styles/_variables.sass') }'`
+					}
+				}),
 				dev
 			}),
 			resolve({
