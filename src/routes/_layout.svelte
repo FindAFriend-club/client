@@ -10,5 +10,7 @@
   </style>
 </svelte:head>
 
-<Nav {segment} />
+{#if segment}
+  <Nav {segment} />
+{/if}
 <slot />
