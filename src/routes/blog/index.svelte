@@ -10,11 +10,10 @@
 	export let posts: { slug: string; title: string, html: any }[];
 </script>
 
-<style>
-	ul {
-		margin: 0 0 1em 0;
-		line-height: 1.5;
-	}
+<style lang="sass">
+	ul
+		margin: 0 0 1em 0
+		line-height: 1.5
 </style>
 
 <svelte:head>
