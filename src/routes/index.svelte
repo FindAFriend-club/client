@@ -6,13 +6,13 @@
     &::before 
       content: ""
       position: fixed
-      left: calc(50% - 0.25 * 850px)
+      left: calc(100% + 5rem)
       width: 100vw
-      height: 2000px
-      background: hsl(220, 100%, 60%)
-      background: linear-gradient(hsl(220, 100%, 70%), #05f)
+      height: 100vh
+      background: $primary
+      background: linear-gradient(lighten($primary, 10%), $primary)
       transform: skew(-25deg)
-      transform-origin: left
+      transform-origin: top left
       z-index: -1
 
   \:global(body)
@@ -41,7 +41,7 @@
       form button 
         display: block
         color: #fff
-        background: hsl(220, 100%, 55%)
+        background: $primary
         border: 0
         margin: 1rem 0
         padding: 1rem 1.5rem
@@ -50,6 +50,10 @@
         width: 100%
 
   @media (min-width: 768px)
+    \:global(html)
+      &::before
+        left: calc(50% + 10rem)
+
     main 
       display: flex
 
