@@ -1,9 +1,17 @@
+<script>
+  import FlipBox from "../components/FlipBox.svelte";
+  import LoginForm from "../components/LoginForm.svelte";
+  import SignUpForm from "../components/SignUpForm.svelte";
+
+  import { isFormFlipped } from "../stores";
+</script>
+
 <style lang="sass">
   \:global(html)
-    height: 100vh
+    height: 100%
     background: #fff
-  
-    &::before 
+
+    &::before
       content: ""
       position: fixed
       left: calc(100% + 5rem)
@@ -16,11 +24,15 @@
       z-index: -1
 
   \:global(body)
+    display: flex
+    height: 100%
     background: none
+    align-items: center
+    justify-content: center
 
   main
     padding: 0 2rem
-    margin-top: 5rem
+    margin-top: 3rem
     justify-content: space-between
 
     .info
@@ -29,41 +41,33 @@
         font-weight: bolder
         text-align: center
 
-    .login
+    .form-outer
       width: 100%
       max-width: 30rem
-      padding: 1rem 1.5rem
-      background: #fff
-      border-radius: 1rem
-      box-shadow: rgba(0, 0, 0, 0.125) 0 0 0.5rem
       flex: 1 1 0
 
-      form button 
-        display: block
-        color: #fff
-        background: $primary
-        border: 0
-        margin: 1rem 0
+      .form
         padding: 1rem 1.5rem
-        font-size: 17px
-        border-radius: 2rem
-        width: 100%
+        background: #fff
+        border-radius: 1rem
+        box-shadow: rgba(0, 0, 0, 0.125) 0 0 0.5rem
 
   @media (min-width: 768px)
     \:global(html)
       &::before
-        left: calc(50% + 10rem)
+        left: calc(50% + 20rem)
 
-    main 
+    main
       display: flex
+      margin-top: 5rem
 
-      .info 
+      .info
         max-width: 50%
-      
-        h1.headline 
+
+        h1.headline
           text-align: left
-      
-      .login 
+
+      .form-outer
         margin: 0 0 0 2rem
 </style>
 
@@ -76,20 +80,14 @@
     <h1 class="headline">Find new friends who share your interests</h1>
   </section>
 
-  <section class="login">
-    <form action="/login" method="post">
-      <input type="text" name="email" id="email" placeholder="Email" />
-      <input
-        type="password"
-        name="password"
-        id="password"
-        placeholder="Password" />
-      <button name="login">Log In</button>
-      <a href="/recover">Forgot your password?</a>
-      <p>
-        Don't have an account yet?
-        <strong><a href="/register">Sign up</a></strong>
-      </p>
-    </form>
+  <section class="form-outer">
+    <FlipBox bind:isFlipped={$isFormFlipped}>
+      <div class="form" slot="front">
+        <LoginForm />
+      </div>
+      <div class="form" slot="back">
+        <SignUpForm />
+      </div>
+    </FlipBox>
   </section>
 </main>
