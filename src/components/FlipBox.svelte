@@ -1,10 +1,7 @@
 <script lang="typescript">
+  import { afterUpdate, onMount } from "svelte";
+
   export let isFlipped;
-
-  let frontHeight: number;
-  let backHeight: number;
-
-  $: flipBoxHeight = Math.max(backHeight, frontHeight)
 </script>
 
 <style lang="sass">
@@ -13,31 +10,34 @@
 
         &.isFlipped
             .flip-box-inner
-                transform: rotateY(180deg)
+                transform: rotateY(-180deg)
 
         .flip-box-inner
-            display: flex
+            display: grid
             transition: transform 0.8s, height 0.8s
             transform-style: preserve-3d
-            flex-flow: row nowrap
+            grid-template-rows: 1fr
 
-            .front, 
+            .front,
             .back
-                width: 100%
+                display: flex
                 -webkit-backface-visibility: hidden
                 backface-visibility: hidden
-                flex: none
+                grid-row-start: 1
+                grid-column-start: 1
+                align-items: center
+                justify-content: center
 
             .back
-                transform: rotateY(180deg) translateX(100%)
+                transform: rotateY(-180deg)
 </style>
 
 <div class="flip-box" class:isFlipped>
-  <div class="flip-box-inner" style={`height: ${flipBoxHeight}px`}>
-    <div bind:offsetHeight={frontHeight} class="front">
+  <div class="flip-box-inner">
+    <div class="front">
       <slot name="front" />
     </div>
-    <div bind:offsetHeight={backHeight} class="back">
+    <div class="back">
       <slot name="back" />
     </div>
   </div>

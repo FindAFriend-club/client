@@ -82,10 +82,10 @@
 
   <section class="form-outer">
     <FlipBox bind:isFlipped={$isFormFlipped}>
-      <div class="form" slot="front">
+      <div class="form" slot="front" style="width: 100%">
         <LoginForm />
       </div>
-      <div class="form" slot="back">
+      <div class="form" slot="back" style="width: 100%">
         <SignUpForm />
       </div>
     </FlipBox>
