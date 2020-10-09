@@ -44,7 +44,7 @@
   main
     position: relative
     height: 100%
-    padding: 5rem 2rem 0
+    padding: 5rem 0.5rem 0
     justify-content: space-between
 
     &::before
@@ -103,7 +103,7 @@
   @media (min-width: 768px)
     main
       display: flex
-      padding-top: 0
+      padding: 0 2rem 0
       justify-content: flex-end
       align-items: center
 
