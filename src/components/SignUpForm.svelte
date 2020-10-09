@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { isFormFlipped } from "../stores";
+  import { isFormFlipped, isFullscreen } from "../stores";
 </script>
 
 <style lang="sass">
@@ -15,23 +15,36 @@
     width: 100%
 </style>
 
-<form action="/signup" method="post">
-  <input type="email" name="email" id="email" placeholder="Email" required />
+<form
+  on:submit|preventDefault={() => {
+    $isFullscreen = true;
+  }}>
+  <input
+    type="email"
+    name="email"
+    id="email"
+    placeholder="Email"
+    autocomplete="username"
+    required />
   <input
     type="password"
     name="password"
     id="password"
     placeholder="Password"
+    autocomplete="new-password"
     required />
   <input
     type="password"
     name="confirmPassword"
     id="password"
     placeholder="Confirm the password"
+    autocomplete="new-password"
     required />
-  <button name="signup">Create an account</button>
+  <button type="submit" name="signup">Create an account</button>
   <p>
     Already have an account?
-    <strong><a href="/" on:click|preventDefault="{() => $isFormFlipped = false}">Log in</a></strong>
+    <strong><a
+        href="/"
+        on:click|preventDefault={() => ($isFormFlipped = false)}>Log in</a></strong>
   </p>
 </form>

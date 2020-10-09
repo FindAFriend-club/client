@@ -1,6 +1,4 @@
 <script lang="typescript">
-  import { afterUpdate, onMount } from "svelte";
-
   export let isFlipped;
 </script>
 
@@ -9,12 +7,12 @@
         perspective: 1000px
 
         &.isFlipped
-            .flip-box-inner
+            & > .flip-box-inner
                 transform: rotateY(-180deg)
 
         .flip-box-inner
             display: grid
-            transition: transform 0.8s, height 0.8s
+            transition: transform 0.5s, height 0.5s
             transform-style: preserve-3d
             grid-template-rows: 1fr
 
