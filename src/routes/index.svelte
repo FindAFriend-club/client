@@ -1,6 +1,8 @@
 <script lang="ts">
+  import { flip } from "svelte/animate";
   import { fade } from "svelte/transition";
   import { circOut } from "svelte/easing";
+
   import FlipBox from "../components/FlipBox.svelte";
   import LoginForm from "../components/LoginForm.svelte";
   import Questions from "../components/Questions.svelte";
@@ -110,6 +112,9 @@
 
       &.fullscreen
         .form-outer
+          position: absolute
+          margin: 0
+          left: 50%
           transform: translateX(-50%)
 
       .info
@@ -134,26 +139,28 @@
   <section class="info">
     <h1 class="headline">Find new friends who share your interests</h1>
   </section>
-
-  <section class="form-outer">
-    <FlipBox bind:isFlipped={$isFormFlipped}>
-      <div class="form" slot="front">
-        <LoginForm />
-      </div>
-      <div class="form" slot="back">
-        {#if !$isFullscreen}
-          <div
-            class="signup"
-            bind:offsetHeight={formHeight}
-            out:fade={{ duration: 500 }}>
-            <SignUpForm />
-          </div>
-        {:else}
-          <div class="questions" in:resizeCenter>
-            <Questions />
-          </div>
-        {/if}
-      </div>
-    </FlipBox>
-  </section>
+  
+  {#each [0] as form (form)}
+    <section class="form-outer" animate:flip>
+      <FlipBox bind:isFlipped={$isFormFlipped}>
+        <div class="form" slot="front">
+          <LoginForm />
+        </div>
+        <div class="form" slot="back">
+          {#if !$isFullscreen}
+            <div
+              class="signup"
+              bind:offsetHeight={formHeight}
+              out:fade={{ duration: 500 }}>
+              <SignUpForm />
+            </div>
+          {:else}
+            <div class="questions" in:resizeCenter>
+              <Questions />
+            </div>
+          {/if}
+        </div>
+      </FlipBox>
+    </section>
+  {/each}
 </main>
